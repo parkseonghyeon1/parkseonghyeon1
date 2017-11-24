@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>상세 페이지</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<link rel="stylesheet" href="../css/swiper.min.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/swiper.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<style>
+#detail_view_mn {overflow:hidden;width:100%;border-bottom:1px solid #aeaeae}
+#detail_view_mn li {float:left;width:33.3%}
+#detail_view_mn li a {display:block;text-align:center;font-size:12px;padding:13px 0 12px;border-bottom:3px solid #fff}	
+#detail_view_mn li.on a {border-bottom:3px solid #edaf07;-webkit-transition: all 0.5s;transition: all 0.5s;}
+
+.dt_view_wrap {background:#fff;width:100%}
+.slide_tab_pn {margin-bottom:56px;width:100%}
+.tab1_pn, .tab2_pn, .tab3_pn {padding:23px 16px;}
+</style>
+<body>
+	<div id="nav_v"></div>
+	<script>
+		$("#nav_v").load("slide_menu.html");
+	</script>
+	<div style="overflow:hidden;width:100%">
+		<!-- main banner -->
+		<!--<div class="detail_bann bk_gray">
+			<div class="main_bann_nav">
+				<span class="sub-pagination"></span>
+			</div>
+		</div>-->
+		<div class="detail_bann bk_gray">
+			<div class="swiper-wrapper" id="rolling_wrap">
+			</div>
+		</div>
+				
+		<div style="padding:20px 16px;background:#fff;border-bottom:1px solid #dbdbdb;margin-bottom:10px">
+			<p class="title" style="font-size:13px" id="wr_subject"></p>
+			<span style="display:block;font-size:11px;color:#797979" id="pr_subject_sub"></span>
+			<div style="overflow:hidden;padding-top:20px">
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">체험단 신청</span>
+					<span style="display:block;font-size:8px" id="pr_due"></span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">체험단 발표</span>
+					<span style="display:block;font-size:8px" id="pr_d_day"></span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">리뷰 등록</span>
+					<span style="display:block;font-size:8px" id="pr_review">11.24 - 12.08</span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">결과발표</span>
+					<span style="display:block;font-size:8px">17.12.14</span>
+				</div>
+			</div>
+		</div>
+		<div class="dt_view_wrap">
+			<ul id="detail_view_mn">
+				<li class="on"><a class="tab1">체험단 정보</a></li>
+				<li><a class="tab2">신청자 <span class="color_sns">123</span>/10</a></li>
+				<li><a class="tab3">업체정보</a></li>
+			</ul>
+			<div class="slide_tab_pn">
+				<div class="swiper-wrapper">
+					<!-- 체험단 정보 -->
+					<div class="swiper-slide">
+						<div class="tab1_pn">
+							
+						</div>
+					</div>
+					<!-- 신청자 -->
+					<div class="swiper-slide">
+						<div class="tab2_pn">
+							<ul id="pd_view_li">
+							
+							</ul>
+						</div>
+					</div>					
+					<!-- 업체정보 -->
+					<div class="swiper-slide">
+						<div class="tab3_pn">
+							<p style="font-size:12px;padding-bottom:10px" class="title">소개</p>
+							<p class="pr_info"></p>	
+							<p style="font-size:12px;padding-bottom:10px;padding-top:23px" class="title">위치</p>
+							<div style="color:#797979;font-size:12px" class="wr_google_map"></div>
+							<div style="margin-left:;padding-top:13px"><iframe class="map_wrap" src="http://modublog.co.kr/app_public/map_load.php" width="100%" frameborder="0" height="330px" noresize></iframe></div>
+						</div>
+					</div>	
+					
+				</div>
+			</div>
+			
+			<div style="position:fixed;bottom:0;left:0;padding:10px 0;background:#edaf07;width:100%;z-index:2">
+				<div style="overflow:hidden;padding:0 18px">
+					<a style="display:block;float:left;width:47%;color:#fff;text-align:center;padding:8px 0;font-size:12px;border:1px solid #fff;border-radius:4em;overflow:hidden">구경하기</a>
+					<a style="display:block;float:right;width:47%;color:#fff;text-align:center;padding:8px 0;font-size:12px;border:1px solid #fff;border-radius:4em;overflow:hidden">신청하기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	//전체 로딩
+	$(document).ready(function(){
+		var mb_id = 'dptmf5466navercom';
+		var bo_table = getQuerystring('bo_table');
+		var wr_id = getQuerystring('wr_id');
+		var params = {"wr_id":wr_id,"mb_id":mb_id,"bo_table":bo_table};
+		var string = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_product_sns.php",
+			data:params,
+			success:function(data){
+				$('#wr_subject').html(data.wr_subject);
+				$('.pr_info').html(data.pr_info);
+				$('.wr_google_map').html(data.wr_google_map);
+				$('.map_wrap').attr('src','http://modublog.co.kr/app_public/map_load.php?bo_table='+bo_table+'&wr_id='+wr_id);
+				$('#pr_subject_sub').html(data.pr_subject_sub);
+				$('#pr_d_day').html(data.pr_d_day);
+				$('#pr_due').html(data.pr_due1 + " - " + data.pr_due2);
+				$('#pr_review').html(data.pr_review1 + " - " + data.pr_review2);
+				
+				$.each(data.pr_file,function(key,value){
+					string += '<div class="swiper-slide"><div class="main_bann_img"><img alt="" src="'+value+'"></div></div>';
+				}); 
+				$('#rolling_wrap').html(string);
+				
+				$('#wr_google_map').html(data.wr_google_map);
+				$('.tab1_pn').html(data.wr_content);
+				
+				//메인배너
+				/*$.each(data[0],function(key,value){
+					string += '<div class="swiper-slide"><div class="main_bann_img"><img alt="" src="http://modublog.co.kr/data/file/banner/new_banner/'+value.image_file+'"></div><div class="bann_txt"><p class="title"></p><span></span></div></div>';
+				}); 
+				$('.detail_bann').append('<div class="swiper-wrapper" id="rolling_wrap"></div>');
+				$("#rolling_wrap").append(string);*/
+				
+				console.log(data.wr_subject);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});
+		//댓글
+		var bo_table = getQuerystring('bo_table');
+		var wr_id = getQuerystring('wr_id');
+		var params = {"wr_id":wr_id,"bo_table":bo_table};
+		
+		var string_c = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_comment_view.php",  
+			data:params,			
+			success:function(data){
+				console.log(data);
+				$.each(data,function(key,value){
+					//if(!value.wr_comment_reply){
+					string_c += '<li style="border-bottom:1px solid #ebebeb"><div class="comment_title"><span class="title_sub">'+value.wr_name+'</span><span class="date_txt">'+value.datetime+'</span><span class="comment_re"></span><div class="comment_img"><img src="'+value.mb_photo+'"></div></div><div class="comment_conts">'+value.wr_content+'</div></li>';
+					//}
+					<!-- <a href="'+value.sns_2+'" class="color_sns btn_comment">SNS 보기</a> -->
+				})
+				//console.log(data);
+				//$('#comment_num').html("댓글 "+data.length);
+				$('#pd_view_li').html(string_c);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});   
+		// 메뉴 슬라이드
+		var mn_slide = new Swiper('.slide_tab_pn', { // 소개이미지 슬라이드
+			pagination: '#detail_view_mn',
+			paginationClickable: true, 		
+			centeredSlides: true, 
+			slidesPerView: 1,
+			loop: true,
+			autoplayDisableOnInteraction:false 
+		}); 		
+		//끝
+		// 배너 슬라이드
+		var banner_slide = new Swiper('.detail_bann', { // 소개이미지 슬라이드
+			pagination: '.sub-pagination',
+			paginationClickable: true, 		
+			centeredSlides: true, 
+			slidesPerView: 1,
+			loop: true,
+			autoplay: {
+				delay:3200, // slide 시간 실정
+			},
+			autoplayDisableOnInteraction:false 
+		});
+		//끝			
+	});
+	</script>
+	
+</body>
+</html>

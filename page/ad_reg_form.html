@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+	<script src="../js/jquery.form.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>광고문의</h1>
+		<a href="#none" class="header_btn_l btn_back" onclick="$.mobile.back();">뒤로</a>
+	</div>
+	<form id="ad_reg_form" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="state" value="문의"/>
+	<div id="m_reg_wrap">
+		<div class="m_reg_li">
+			<p class="title" style="font-size:11px;text-align:center;padding-top:20px">문의를 남겨주시면 해당 업종 담당자가<br>확인 후 연락드리겠습니다.</p>
+			<ul>
+				<li>
+					<label class="title" for="state">문의서비스</label>
+					<div class="dv_input">
+						<select name="state" id="state">
+							<option value="">선택하세요</option>
+							<option value="모두의블로그">모두의블로그</option>
+							<option value="모두의SNS">모두의SNS</option>
+							<option value="모두의쉐어">모두의쉐어</option>
+							<option value="모두의스타일">모두의스타일</option>
+							<option value="SNS육성">SNS 육성</option>
+							<option value="블로그육성">블로그 육성</option>
+							<option value="광고영상제작">광고영상제작</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<label class="title" for="data1">업체종류</label>
+					<div class="dv_input">
+						<select name="data1" id="data1">
+							<option value="">선택하세요</option>
+							<option value="맛집">맛집</option>
+							<option value="뷰티">뷰티</option>
+							<option value="여행/숙박">여행/숙박</option>
+							<option value="쇼핑몰">쇼핑몰</option>
+							<option value="인물">인물</option>
+							<option value="기타">기타</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<label class="title" for="local">지역</label>
+					<div class="dv_input">
+						<div class="input_txt">
+							<input class="input" type="text" name="data2" id="local" placeholder="예) 서울" required>
+						</div>
+					</div>
+				</li>
+				<li>
+					<label class="title" for="store">업체명</label>
+					<div class="dv_input">
+						<div class="input_txt">
+							<input class="input" type="text" name="data3" id="store" placeholder="업체명 입력" required>
+						</div>
+					</div>
+				</li>
+				<li>
+					<label class="title" for="data4">담당자명</label>
+					<div class="dv_input">
+						<div class="input_txt">
+							<input class="input" type="text" name="data4" id="data4" placeholder="담당자명 입력" required>
+						</div>
+					</div>
+				</li>
+				<li>
+					<label class="title" for="">연락처</label>
+					<div class="tel_input" style="overflow:hidden">
+						<select name="data5">
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
+							<option value="070">070</option>
+						</select> 
+						<em>-</em>
+						<input class="input" type="text" name="data6" id="data6" maxlength="4" numberonly="true" required><em >-</em>
+						<input class="input" type="text" name="data7" id="data7" maxlength="4" numberonly="true" required>
+					</div>
+				</li>
+				<li>
+					<label class="title">이메일</label>
+					<div class="dv_input">
+						<div class="input_txt">
+							<input class="input" type="text" name="data8" id="data8" placeholder="welcome@modublog.com" required>
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="title">홈페이지</p>
+					<div class="dv_input">
+						<div class="input_txt">
+							<input class="input" type="text" name="data11" id="data11" placeholder="www.modublog.co.kr" required>
+						</div>
+					</div>
+				</li>
+				<li>
+					<p class="title">내용</p>
+					<div class="dv_input">
+						<div class="input_txt">
+							<textarea style="resize:none;height:132px;width:100%;box-sizing:border-box;border:none;padding:13px;font-size:11px" name="data9" id="data9" placeholder="내용 입력"></textarea>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="m_reg_li terms_wrap">
+		<p class="title">약관동의</p>
+		<div class="terms_use terms_all">
+			<p>모두동의</p>
+			<input type="checkbox" id="chk_all">
+			<label for="chk_all"><span></span></label>
+		</div>
+		<em class="em_b"></em>
+		<div class="terms_use">
+			<span class="ct">[필수]</span><a href="#none">제휴문의 안내</a>
+			<input type="checkbox" id="chk_1" name="check">
+			<label for="chk_1"><span></span></label>
+		</div>
+		<div class="terms_use">
+			<span class="ct">[필수]</span><a href="#none">개인정보 수집 및 이용 동의</a>
+			<input type="checkbox" id="chk_2" name="check">
+			<label for="chk_2"><span></span></label>
+		</div>
+	</div>
+	<div style="padding:0 16px 20px">
+		<div class="btn_wrap btn_ok">
+			<a href="#none" id="btn_submit">문의하기</a>
+		</div>
+		<div class="bottom_txt">광고문의에 문제가 있을 시 광고/제휴문의 고객센터로<br>전화해주시면 친절히 안내해 드리겠습니다.</div>
+		<div class="bottom_txt bt_footer">광고/제휴문의 고객센터 02-3144-2110<br>일반회원 고객센터 02-6392-2121</div>
+	</div>
+	</form>
+    
+	<script>
+	// 숫자만 입력
+	$(document).on("keyup", "input:text[numberOnly]", function(){
+		$(this).val($(this).val().replace(/[^0-9]/g,''));
+	});
+	$(document).on("keydown", "input:text[numberOnly]", function(){
+		$(this).val($(this).val().replace(/[^0-9]/g,''));
+	});
+	$(document).on("blur", "input:text[numberOnly]", function(){
+		$(this).val($(this).val().replace(/[^0-9]/g,''));
+	});
+	</script>
+	<script>
+	// 약관동의 체크박스
+	$(document).ready(function(){
+		// 전체동의 선택 시 모든 체크박스 상태 checked true|false
+		$('#chk_all').click(function(){
+			if($('#chk_all').prop('checked')){
+				$('input[name=check]').prop('checked',true);
+				$('.btn_ok > a').addClass('on');
+			}else{
+				$('input[name=check]').prop('checked',false);
+				$('.btn_ok > a').removeClass('on');
+			}
+		})
+		// 모든 체크박스 checked 일 때 확인 버튼 on
+		$('input[name=check]').click(function(){
+			if($('#chk_1').prop('checked') && $('#chk_2').prop('checked')){
+				$('.btn_ok > a').addClass('on');
+			}else{
+				$('.btn_ok > a').removeClass('on');
+			}
+		})
+	})
+	</script>
+	<script>
+	$(document).on('click','#btn_submit',function(){
+		var regexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var state = $('#state option:selected').val();
+		var data1 = $('#data1 option:selected').val();
+		var data2 = $('#local').val();
+		var data3 = $('#store').val();
+		var data4 = $('#data4').val();
+		var data5 = $('#data5').val();
+		var data6 = $('#data6').val();
+		var data7 = $('#data7').val();
+		var data8 = $('#data8').val();
+		var data9 = $('#data9').val();
+		var data11 = $('#data11').val();
+		var agree1 = $('#chk_1:checkbox:checked').val();
+		var agree2 = $('#chk_2:checkbox:checked').val();
+		
+		if(state == ""){
+			alert("문의서비스를 선택해주세요.");
+			$("#state").focus();
+			return false;
+		}
+		if(data1 == ""){
+			alert("업체종류를 선택해주세요.");
+			$("#data1").focus();
+			return false;
+		}
+		if(data2 == ""){
+			alert("지역을 입력해주세요.");
+			$("#local").focus();
+			return false;
+		}
+		if(data3 == ""){
+			alert("업체명을 입력해주세요.");
+			$("#store").focus();
+			return false;
+		}  
+		if(data4 == ""){
+			alert("담당자명을 입력해주세요.");
+			$("#data4").focus();
+			return false;
+		}
+		if(data5 == "" || data6 == "" || data7 == ""){
+			alert("연락처를 입력해주세요.");
+			$("#data5").focus();
+			return false;
+		}
+		if(data8 == ""){
+			alert("이메일을 입력해주세요.");
+			$("#data8").focus();
+			return false;
+		}
+		if(data8.match(regexEmail) == null){
+			alert("이메일을 올바른형식으로 입력해주세요.");
+			$("#data8").focus();
+			return false;
+		}
+		if(data11 == ""){
+			alert("홈페이지를 입력해주세요.");
+			$("#data11").focus();
+			return false;
+		}
+		if(data9 == ""){
+			alert("내용을 입력해주세요.");
+			$("#data9").focus();
+			return false;
+		}
+		if(agree1 != 'on' || agree2 != 'on'){
+			alert("이용약관에 동의해주세요.");
+			return false;
+		}
+		
+		$('#ad_reg_form').ajaxForm({
+			url: "http://modublog.co.kr/app_public/ajax/a_ad_post.php",
+			enctype: "multipart/form-data",
+			success: function(args){
+				var result = confirm(args); 
+				if(result){ 
+					location.replace('main.html'); 
+				}else{
+					//fail
+				}
+			}
+		});
+		$("#ad_reg_form").submit();
+	})
+	</script>
+</body>
+</html>

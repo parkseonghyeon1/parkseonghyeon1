@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>1:1문의</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>1:1문의</h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<!--천 단위 초과시 글자단위 적용(ex.1만,2만,30만)-->
+	<div class="list_wrap">
+		<ul class="list_pn" id="comu_li" style="background:#fff">
+			
+		</ul>
+		<div id="loading_bar" class="off">
+	</div>
+	<a href="qna_write.html" style="position:fixed;bottom:10px;right:10px;width:50px;height:30px;z-index:2;text-align:center">글쓰기</a>
+	<script>
+	$(document).ready(function(){
+		var string_c = '';
+		var params = {"bo_table":"qna","mb_id":member['mb_id']};
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_list.php",          
+			data:params,
+			success:function(data){
+				$.each(data,function(key,value){
+					string_c += '<li><a href="qna_view.html?wr_id='+value.wr_id+'"><div class="comu_li"><div class="list_txt"><span class="txt_ov title_sub"><span class="">['+value.ca_name+']&nbsp;</span>'+value.wr_subject+'</span><span class="sub_txt">'+value.wr_name+'</span><span class="sub_txt">'+value.datetime+'</span><span class="sub_txt">조회&nbsp;'+value.wr_hit+'</span></div><div class="comment_img"><img src="'+value.mb_photo+'"></div></div></a></li>';
+				})
+				$('#comu_li').append(string_c);
+				console.log(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	});
+	</script>
+	<script>
+	var list = 20;
+	var list_num = 20;
+	$(window).scroll(function() {
+		if($(window).scrollTop() == $(document).height() - $(window).height()){
+			var linum = $("#comu_li li").length;
+			var loading_class = $("#loading_bar").attr("class");
+			if(linum > 0 && loading_class == 'off'){
+				var params = {"list_ar":list,"bo_table":"qna","mb_id":member['mb_id']};
+				var string_c = '';
+				$.ajax({      
+					type:"POST",
+					data:params,			
+					url:"http://modublog.co.kr/app_public/ajax/a_ajax.php",      
+					beforeSend:function(){
+						$("#loading_bar").attr("class","on");
+						$("#loading_bar").html("<div class='loader_wrap' style='height:56px;background:#fff'><img src='../img/icon_loder.gif'></div>");
+					},
+					success:function(data){
+						$.each(data,function(key,value){
+							string_c += '<li><a href="qna_view.html?wr_id='+value.wr_id+'"><div class="comu_li"><div class="list_txt"><span class="txt_ov title_sub"><span class="">['+value.ca_name+']&nbsp;</span>'+value.wr_subject+'</span><span class="sub_txt">'+value.wr_name+'</span><span class="sub_txt">'+value.datetime+'</span><span class="sub_txt">조회&nbsp;'+value.wr_hit+'</span></div><div class="comment_img"><img src="'+value.mb_photo+'"></div></div></a></li>';
+						})
+						$('#comu_li').append(string_c);
+						
+						list = list + list_num;
+						
+						$("#loading_bar").attr("class","off");
+						if(!string_c){
+							$("#loading_bar").attr("class","");
+						}
+					},   
+					error:function(e){  
+						alert(e.responseText);  
+					}  		
+				})
+			}
+		}	
+	})
+	</script>
+</body>
+</html>

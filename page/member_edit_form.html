@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>개인정보변경</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery.form.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>개인정보변경</h1>
+		<a href="#none" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<form id="mb_edit_form" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="w" value="u">
+	<input type="hidden" name="mb_id" value="shinbyro">
+		<div class="bk_gray">
+			<div class="bk_white m_profile_box">
+				<div id="img_box1">
+					<!--<input type="file" name="" class="btn_add_img" onchange="fileInfo_b(this)">-->
+					<div style="width:100%;height:100%; background:rgba(0,0,0,.3)"></div>
+				</div>
+				<div class="profile_info">
+					<p id="mb_name"></p>
+					<span id="mb_email"></span>
+				</div>
+				<div id="img_box2">
+					<div class="profile_img">
+						<div style="position:relative;width:100%;height:100%"><img src="" id="mb_photo" style="width:100%;height:100%;position:absolute;top:0;left:0;bottom:0;right:0"></div>
+					</div>
+					<div class="btn_add_img"><input type="file" name="mb_photo" id="mb_photo" onchange="fileInfo_p(this)"></div>
+				</div>
+			</div>
+			<div id="m_reg_wrap" style="margin-top:10px">
+				<div class="m_reg_li">
+					<ul>
+						<li>
+							<label for="mb_nick" class="title">닉네임</label>
+							<div class="dv_input">
+								<div class="input_txt conf_input">
+									<input name="mb_nick" id="mb_nick" class="input" type="text" placeholder="닉네임을 입력해주세요." required>
+									<span class="conf_stat" id="nick_dis" style="display:none">중복여부</span>
+									<input type="hidden" id="nick_chk_val" value="0">
+								</div>
+							</div>
+						</li>
+						<li>
+							<label for="mb_password" class="title">비밀번호</label>
+							<div class="dv_input m_b">
+								<div class="input_txt"><input name="mb_password" id="mb_password" class="input" type="password" placeholder="한/영·문자·숫자 포함 6자리 이상" required></div>
+								<div class="input_txt2"><input name="mb_password_re" id="mb_password_re" class="input" type="password" placeholder="비밀번호 확인" required></div>
+							</div>
+						</li>
+						<li style="overflow:hidden">
+							<label for="" class="title">연락처</label>
+							<div class="tel_input" style="overflow:hidden">
+								<input class="input" type="text" name="mb_hp1" id="mb_hp0" maxlength="3" numberonly="true" required><em>-</em>
+								<input class="input" type="text" name="mb_hp2" id="mb_hp1" maxlength="4" numberonly="true" required><em >-</em>
+								<input class="input" type="text" name="mb_hp3" id="mb_hp2" maxlength="4" numberonly="true" required>
+							</div>
+						</li>
+						
+						<li>
+							<label for="" class="title">우편번호</label>
+							<div class="dv_input conf_input m_b">
+								<div class="input_txt">
+									<input class="input" name="mb_zip" id="mb_zip1" type="text" placeholder="우편번호 입력" readonly required>
+									<input type="button" class="conf_stat btn_conf" id="btn_zip" value="우편검색" onclick="sample4_execDaumPostcode()">
+								</div>
+								<div class="input_txt2">
+									<input class="input" name="mb_addr1" id="mb_addr1" type="text" placeholder="주소 입력" readonly required>
+								</div>
+								<div class="input_txt3">
+									<input class="input" name="mb_addr2" id="mb_addr2" type="text" placeholder="나머지 주소 입력" required>
+								</div>
+							</div>
+							<div id="wrap" class="zip_wrap">
+								<img class="btn_zip_close" src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" onclick="foldDaumPostcode()" alt="닫기">
+							</div>
+							<span id="guide" style="color:#999"></span>	
+						</li>
+						<li>
+							<label for="" class="title">블로그 주소</label>
+							<div class="dv_input">
+								<div class="input_txt"><input name="mb_homepage" id="mb_homepage" class="input" type="text" placeholder="블로그 주소 입력" required></div>
+							</div>
+						</li>
+						<li>
+							<p class="title">SNS 주소 <span>(선택)</span></p>
+							<div class="dv_input m_b">
+								<div class="input_txt"><input class="input" name="sns_1" id="mb_sns1" type="text" placeholder="페이스북 아이디 입력"></div>
+								<div class="input_txt2"><input class="input" name="sns_2" id="mb_sns2" type="text" placeholder="인스타그램 아이디 입력"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div style="padding:0 16px">
+				<div class="btn_wrap btn_ok">
+					<a href="#none" id="btn_submit" class="on">변경완료</a>
+				</div>
+			</div>	
+		<div class="bottom_mn">
+			<a href="#none">회원가입</a><span>ㅣ<span><a href="#none">로그아웃</a>
+		</div>
+		<div class="log_footer n_ov_f">광고/제휴문의 고객센터 02-3144-2110<br>일반회원 고객센터 0 2-6392-2121</div>
+	</div>		
+	</form>
+	<script>
+	$(document).ready(function(){
+		var mb_id = {'mb_id':'shinbyro'};
+		$.ajax({      
+			url: 'http://modublog.co.kr/app_public/a_edit_member.php',
+			data: mb_id,
+			type: 'POST',
+			datatype: 'JSON',
+			success: function(data){
+				$.each(data,function(key,value){
+					if(key == 'mb_hp0' || key == 'mb_hp1' || key == 'mb_hp2' || key == 'mb_nick' || 
+					key == 'mb_zip1' || key == 'mb_addr1' || key == 'mb_addr2' || key == 'mb_homepage' || 
+					key == 'mb_sns1' || key == 'mb_sns2'){
+						$("#"+key).val(value);
+					}
+					if(key == 'mb_email' || key == 'mb_name'){
+						$("#"+key).text(value);
+					}
+					if(key == 'mb_photo'){
+						$("#"+key).attr("src","http://modublog.co.kr/data/mb_photo/"+value);
+						$('#img_box1').css('background','url(http://modublog.co.kr/data/mb_photo/'+value+')center center / cover no-repeat');
+					}
+				})
+			}, 
+			error:function(e){  
+				
+			}  
+		}); 
+	})
+	
+	// 유효성 검사 정규식
+	var regexPw = /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/;
+	var regexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
+	// 닉네임 사용가능 여부 체크
+	$('#mb_nick').keyup(function(){
+		if(mb_nick != $('#mb_nick').val()){
+			if($('#mb_nick').val().length >= 3){
+				var nickname = $(this).val();
+				$.ajax({      
+					url: 'http://modublog.co.kr/app_public/a_register_checknickname.php',
+					data: {'nickname':nickname},
+					type: 'POST',
+					success: function(args){
+						if(args == 'enable'){
+							$('#nick_chk').css('display','none');
+							$('#nick_dis').css('display','block');
+							$('#nick_dis').css('background','#0755ed');
+							$('#nick_dis').text('사용가능');
+							$('#nick_chk_val').val("1");
+						}else if(args == 'disable'){
+							$('#nick_chk').css('display','none');
+							$('#nick_dis').css('display','block');
+							$('#nick_dis').css('background','#ef5350');
+							$('#nick_dis').text('사용불가');
+							$('#nick_chk_val').val("0");
+						}
+					}, 
+					error:function(e){  
+						
+					}  
+				}); 
+			}else{
+				$('#nick_chk').css('display','block');
+				$('#nick_dis').css('display','none');
+			}
+		}
+	})
+	
+	</script>
+	<script>
+	function fileInfo_p(f){
+		var file = f.files; // 파일의 정보
+		// file 은 배열이므로 file[0] 으로 접근
+
+		if(file[0].size > 1024 * 1024){
+			//alert('1MB 이상의 파일은 X');
+			return;
+		}
+		else if(file[0].type.indexOf('image') < 0){ // 선택한 파일이 이미지인지 확인
+			//alert('이미지 파일만 선택하세요.');
+			return;
+		}
+
+		var reader = new FileReader(); // FileReader 객체 사용
+		reader.onload = function(rst){
+			$('#mb_photo').attr("src", rst.target.result); 
+			$('#img_box1').css('background','url('+rst.target.result+')center center / cover no-repeat');
+			// append 메소드를 사용해서 이미지 추가
+			// 이미지는 base64 문자열로 추가
+		}
+		reader.readAsDataURL(file[0]); // 파일을 읽는다
+	}
+	</script>
+	<script>
+	$(document).on('click','#btn_submit',function(){
+		$('#mb_edit_form').ajaxForm({
+			url: "http://modublog.co.kr/app_public/a_register_member.php",
+			enctype: "multipart/form-data",
+			success: function(args){
+				alert(args);
+			}
+		});
+		$("#mb_edit_form").submit();
+	})
+	</script>
+</body>
+</html>

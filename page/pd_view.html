@@ -1,0 +1,74 @@
+
+	<li style="border-bottom:1px solid #ebebeb">
+		<div class="comment_title">
+			<span class="title_sub">별그레</span>
+			<span class="date_txt">17.11.05</span>
+			<span class="comment_re"><a href="#none" class="color_sns btn_comment">SNS 보기</a></span>
+			<div class="comu_comment_img"></div>
+		</div>
+		<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+	</li>
+	<li style="border-bottom:1px solid #ebebeb">
+		<div class="comment_title">
+			<span class="title_sub">별그레</span>
+			<span class="date_txt">17.11.05</span>
+			<span class="comment_re"><a href="#none" class="color_sns btn_comment">SNS 보기</a></span>
+			<span class="comment_re" style="position:absolute;right:0;top:5px"><a href="#none" class="color_sns btn_comment">추천하기</a></span>
+			<div class="comu_comment_img"></div>
+		</div>
+		<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+	</li>
+	<li>
+		<div class="comment_title">
+			<span class="title_sub">별그레</span>
+			<span class="date_txt">17.11.05</span>
+			<span class="comment_re"><a href="#none" class="color_sns btn_comment" btn_comment>SNS 보기</a></span>
+			<div class="comu_comment_img"></div>
+		</div>
+		<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+	</li>
+	
+	<script>
+	$(document).ready(function(){
+		var wr_id = getQuerystring('bo_table');
+		var wr_id = getQuerystring('wr_id');
+		var params = {"wr_id":wr_id,"bo_table":bo_table};
+		var string_c = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_comment_view.php",  
+			data:params,			
+			success:function(data){
+				$.each(data,function(key,value){
+					if(!value.wr_comment_reply){
+						string_c += '<li><div>';
+					}else{
+						string_c += '<li style="border-top:1px solid #f1f1f1"><div class="comment_re_dp" style="margin-left:'+value.cmt_depth+'px">';
+					}
+					
+					string_c += '<div class="comment_title"><span class="title_sub">'+value.wr_name+'</span><span class="date_txt" style="padding:0 4px">'+value.datetime+'</span><span class="comment_re">';
+					
+					if(member['mb_id']){
+						string_c += '<a href="#none" class="color_blog btn_comment" id="'+value.wr_id+'">답글</a>';
+					}
+					
+					string_c += '</span><div class="comment_img"><img src="'+value.mb_photo+'"></div></div>';
+					
+					if(value.icon_secret && value.mb_id != member['mb_id']){
+						string_c += '<div class="comment_conts">비밀글입니다.</div>';
+					}else{
+						string_c += '<div class="comment_conts">'+value.wr_content+'</div>';
+					}
+					string_c += '</div><div class="test"></div></li>';
+					
+				})
+				console.log(data);
+				$('#comment_num').html("댓글 "+data.length);
+				$('#comment_li').append(string_c);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  
+	})
+	</script>

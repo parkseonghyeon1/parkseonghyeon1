@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>메세지함</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>메세지함</h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<div class="list_wrap">
+		<div class="message_sort" style="position:relative">
+			<a class="on" id="s_recent">최신순</a>
+			<a id="s_read">안읽은순</a>
+			<input type="button" class="btn_tp1 btn_read_all" value="전체 읽음">
+			<input type="hidden" id="sort" value="">
+		</div>
+		<ul class="list_pn_sd message_list" id="message_li">
+		
+		</ul>
+		<div id="loading_bar" class="off">
+	</div>
+	<script>
+	// 매세지 목록
+	$(document).ready(function(){
+		var sort = $("#sort").val();
+		var mb_id = 'qwe';
+		var mb_id = member['mb_id'];
+		var params = {"mb_id":mb_id,"sort":sort};
+		string_m = '';
+		$.ajax({      
+			type:"POST",
+			data:params,			
+			url:"http://modublog.co.kr/app_public/ajax/a_message_list.php",      
+			success:function(data){
+				$.each(data,function(key,value){
+					string_m += '<li><a id="'+value.me_id+'"><div class="list_txt" style="padding:13px 0">';
+					if(value.me_read_datetime === "0000-00-00 00:00:00"){
+					string_m += '<span class="txt_ov title_sub">'+value.me_memo+'</span>';
+					}else{
+					string_m += '<span class="txt_ov title_sub r_memo">'+value.me_memo+'</span>';
+					}
+					string_m += '<span class="date_txt">'+value.me_send_datetime+'</span></div></a><div class="answer">'+value.me_memo+'</div></li>';
+				}); 
+				$("#message_li").append(string_m);
+				
+				console.log(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  		
+		})
+	})
+	</script>
+	<script>
+	// 스크롤 목록
+	var list = 20;
+	var list_num = 20;
+	$(window).scroll(function() {
+		if($(window).scrollTop() == $(document).height() - $(window).height()){
+			var sort = $("#sort").val();
+			var mb_id = member['mb_id'];
+			var linum = $("#message_li li").length;
+			var loading_class = $("#loading_bar").attr("class");
+			if(linum > 0 && loading_class == 'off'){
+				var params = {"list_ar":list,"mb_id":mb_id,"sort":sort};
+				var string_m = '';
+				$.ajax({      
+					type:"POST",
+					data:params,			
+					url:"http://modublog.co.kr/app_public/ajax/a_message_ajax.php",      
+					beforeSend:function(){
+						$("#loading_bar").attr("class","on");
+						$("#loading_bar").html("<div class='loader_wrap' style='height:56px;background:#fff'><img src='../img/icon_loder.gif'></div>");
+					},
+					success:function(data){
+						$.each(data,function(key,value){
+							string_m += '<li><a id="'+value.me_id+'"><div class="list_txt" style="padding:13px 0">';
+							if(value.me_read_datetime === "0000-00-00 00:00:00"){
+							string_m += '<span class="txt_ov title_sub">'+value.me_memo+'</span>';
+							}else{
+							string_m += '<span class="txt_ov title_sub r_memo">'+value.me_memo+'</span>';
+							}
+							string_m += '<span class="date_txt">'+value.me_send_datetime+'</span></div></a><div class="answer">'+value.me_memo+'</div></li>';
+						}); 
+						$("#message_li").append(string_m);
+						
+						list = list + list_num;
+						
+						$("#loading_bar").attr("class","off");
+						
+						if(!string_m){
+							$("#loading_bar").attr("class","");
+						}
+					},   
+					error:function(e){  
+						alert(e.responseText);  
+					}  		
+				})
+			}
+		}	
+	})
+	</script>
+	<script>
+	// 리스트 슬라이드
+	$('#message_li').on('click',' > li > a', function(){
+		$(this).closest('li').toggleClass('on').find('.answer').slideToggle().end().siblings().removeClass('on').find('.answer').slideUp();	
+		var mb_id = member['mb_id'];
+		var params = {"m_read":"m_read","me_id":me_id};
+		var r_txt = $(this).children().children('span').addClass("r_memo");
+		$.ajax({      
+			type:"POST",
+			data:params,			
+			url:"http://modublog.co.kr/app_public/ajax/a_message_update.php",
+			success:function(data){
+			
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  		
+		})
+	})
+	
+	// 전체 읽음 버튼
+	$(document).on('click','.btn_read_all',function(){
+		var me_id = $(this).attr("id");
+		var mb_id = member['mb_id'];
+		var params = {"m_all":"m_all","mb_id":mb_id};
+		$.ajax({      
+			type:"POST",
+			data:params,			
+			url:"http://modublog.co.kr/app_public/ajax/a_message_update.php",
+			success:function(data){
+				$('.title_sub').addClass("r_memo");
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			} 		
+		}) 
+	});
+	
+	// 정렬 버튼 (최신순 | 안읽은순)
+	$(document).on('click','.message_sort a', function(){
+		var mb_id = member['mb_id'];
+		var string_m = '';
+		var sort = $(this).attr("id");
+		var params = {"mb_id":mb_id,"sort":sort};
+		$(this).parents().children().removeClass('on');
+		$(this).addClass('on');
+		$("#message_li").html("");
+		$.ajax({      
+			type:"POST",
+			data:params,			
+			url:"http://modublog.co.kr/app_public/ajax/a_message_list.php",
+			success:function(data){
+				$.each(data,function(key,value){
+					string_m += '<li><a id="'+value.me_id+'"><div class="list_txt" style="padding:13px 0">';
+					if(value.me_read_datetime === "0000-00-00 00:00:00"){
+					string_m += '<span class="txt_ov title_sub">'+value.me_memo+'</span>';
+					}else{
+					string_m += '<span class="txt_ov title_sub r_memo">'+value.me_memo+'</span>';
+					}
+					string_m += '<span class="date_txt">'+value.me_send_datetime+'</span></div></a><div class="answer">'+value.me_memo+'</div></li>';
+				}); 
+				$("#message_li").append(string_m);
+				
+				console.log(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  		
+		})
+	})
+	</script>
+</body>
+</html>

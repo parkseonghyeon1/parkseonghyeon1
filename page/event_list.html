@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>이벤트</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>이벤트</h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<div class="event_list bk_white">
+		<ul id="event_li">
+		
+		</ul>
+	</div>
+	<script>
+	$(document).ready(function(){
+		var params = {"bo_table":"event"};
+		var string_ev = '';
+		$.ajax({   
+			
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_list.php",          
+			data: params,
+			success:function(data){
+				
+				$.each(data,function(key,value){
+					
+					if(value.icon_secret){
+						string_ev += '<li><a class="stop">';
+					}else{
+						string_ev += '<li><a href="event_view.html?wr_id='+value.wr_id+'">';
+					}
+					
+					string_ev += '<div class="list_conts"><div class="list_txt"><p class="txt_ov title_sub" style="font-size:11px">'+value.wr_subject+'</p><span class="date_txt">'+value.datetime+'</span>';
+					
+					if(value.icon_secret && value.wr_link1){
+						string_ev += '<span id="'+value.wr_link1+'" class="btn_priz" style="font-size:10px;text-align:center;color:#0755ed;border:1px solid #ebebeb;display:block;line-height:25px;width:60px;border-radius:4px">당첨자 확인</span>';
+					}
+					
+					string_ev += '</div><div class="event_img"><img src="'+value.image+'">';
+					
+					if(value.icon_secret){
+						string_ev += '<div class="end_mask">마감</div>';
+					}
+					string_ev += '</div></div></a></li>';
+				})
+				$('#event_li').append(string_ev);
+				console.log(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	})
+	</script>
+	<script>
+		$(document).on("click",".btn_priz",function(){
+			var wr_id = $(this).attr("id");
+			location.href="event_view.html?wr_id="+wr_id;
+			event.stopPropagation();
+		})
+		$(document).on("click",".stop",function(){
+			return false;
+		})
+		
+	</script>
+</body>
+</html>

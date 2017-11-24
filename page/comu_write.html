@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>커뮤니티 상세</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery.form.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>커뮤니티</h1>
+		<a href="#none" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<form id="comu_reg_form" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="w" value="">
+	<input type="hidden" name="mb_id" id="mb_id" value="">
+	<input type="hidden" name="bo_table" value="comu">
+	<div class="bk_white">
+		<div>
+			<select name="ca_name" id="comu_ct">
+				
+			</select>
+		</div>
+		<div>
+			<input type="text" name="wr_subject" placeholder="제목을 입력해주세요.">
+		</div>
+		<div>
+			<textarea name="wr_content" placeholder="내용을 입력해주세요."></textarea>
+		</div>
+		<div>
+			<input type="file" name="bf_file[]">
+		</div>
+		<div class="btn_wrap btn_ok">
+			<a href="#none" id="submit_btn">등록하기</a>
+		</div>
+	</div>
+	</form>
+	<script>
+	$('#mb_id').val(member['mb_id']);
+	$(document).ready(function(){
+		var params = {"bo_table":"comu"};
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_category.php",          
+			data:params,
+			success:function(data){
+				$('#comu_ct').html(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	});
+	
+	$(document).on('click','#submit_btn',function(){
+		$('#comu_reg_form').ajaxForm({
+			url: "http://modublog.co.kr/app_public/ajax/a_write.php",
+			enctype: "multipart/form-data",
+			success: function(data){
+				location.href="comu_list.html";
+			},
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});
+		$("#comu_reg_form").submit();
+	})
+	</script>
+</body>
+</html>

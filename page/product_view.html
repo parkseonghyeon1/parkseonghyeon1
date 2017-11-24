@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>상세 페이지</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<link rel="stylesheet" href="../css/swiper.min.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/swiper.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="nav_v"></div>
+	<script>
+		$("#nav_v").load("slide_menu.html");
+	</script>
+	<div style="overflow:hidden;width:100%">
+		<!-- main banner -->
+		<div class="detail_bann bk_gray">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="main_bann_img">
+						<img alt="" src="../temp-img/view1.jpg">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="main_bann_img">
+						<img alt="" src="../temp-img/view1.jpg">
+					</div>
+				</div>
+				<div class="sub-pagination" style="width:40px;position:absolute;right:16px;bottom:16px;z-index:2;color:#fff">
+					1/4
+				</div>
+			</div>
+		</div>
+		<div style="padding:20px 16px;background:#fff;border-bottom:1px solid #dbdbdb;margin-bottom:10px">
+			<p class="title" style="font-size:13px">[화장품브랜드]&nbsp;샤이닝스텔라</p>
+			<span style="display:block;font-size:11px;color:#797979">최고 수준의 품질로 믿고 사용할 수 있는 제품</span>
+			<div style="overflow:hidden;padding-top:20px">
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">체험단 신청</span>
+					<span style="display:block;font-size:8px">11.16 - 11.22</span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">체험단 발표</span>
+					<span style="display:block;font-size:8px">11.23</span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">리뷰 등록</span>
+					<span style="display:block;font-size:8px">11.24 - 12.08</span>
+				</div>
+				<div style="float:left;width:25%;text-align:center">
+					<span style="display:block;font-size:10px">결과발표</span>
+					<span style="display:block;font-size:8px">17.12.14</span>
+				</div>
+			</div>
+		</div>
+		
+		<style>
+		#detail_view_mn {overflow:hidden;width:100%;border-bottom:1px solid #aeaeae}
+		#detail_view_mn li {float:left;width:33.3%}
+		#detail_view_mn li a {display:block;text-align:center;font-size:12px;padding:13px 0 12px;border-bottom:3px solid #fff}	
+		#detail_view_mn li.on a {border-bottom:3px solid #1171eb;-webkit-transition: all 0.5s;transition: all 0.5s;}
+		
+		.dt_view_wrap {background:#fff;width:100%}
+		.slide_tab_pn {margin-bottom:56px;width:100%}
+		.tab1_pn, .tab2_pn, .tab3_pn {padding:23px 16px;}
+		</style>
+		
+		<div class="dt_view_wrap">
+			<ul id="detail_view_mn">
+				<li class="on"><a class="tab1">체험단 정보</a></li>
+				<li><a class="tab2">신청자 <span class="color_blog">123</span>/10</a></li>
+				<li><a class="tab3">업체정보</a></li>
+			</ul>
+			<div class="slide_tab_pn">
+				<div class="swiper-wrapper">
+					<!-- 체험단 정보 -->
+					<div class="swiper-slide">
+						<div class="tab1_pn">
+							<p style="font-size:12px;padding-bottom:10px" class="title">제공내역</p>
+							<div style="color:#797979;font-size:12px">스타일라떼 추천 상품 4종 중 택1<br>* 색상 및 사이즈는 선정 후 선택<br><br>A. 여성 기모 스키니 본딩팬츠<br>B. 니트스커트세트 니트투피스<br>C. 여성 벌룬스타일 몰가디건<br>D. 울 함유 체크 언팔 H라인스커트</div>
+							<p style="font-size:12px;padding-bottom:10px;padding-top:23px" class="title">기입사항</p>
+							<div style="color:#797979;font-size:12px">킨더퍼페츠 ID 기입</div>
+							<p style="font-size:12px;padding-bottom:10px;padding-top:23px" class="title">활동사항</p>
+							<div style="color:#797979;font-size:12px">블로그 리뷰 1회</div>
+							<p style="font-size:12px;padding-bottom:10px;padding-top:23px" class="title">주의사항</p>
+							<div style="color:#797979;font-size:12px">- 업체 사정으로 인해 선정 인원은 추후 변경될 수 있습니다.<br>- 상품선택은 참고사항으로 선택하신 상품과 다른 상품에 선정 될 수 있습니다.<br>- 반드시 신청자 본인이 체험하셔야 합니다.<br>(단,대리체험 상품 제외)<br>- 제공 받으신 체험 상품은 재판매하실 수 없습니다.</div>
+						</div>
+					</div>
+					<!-- 신청자 -->
+					<div class="swiper-slide">
+						<div class="tab2_pn">
+							<ul>
+								<li style="border-bottom:1px solid #ebebeb">
+									<div class="comment_title">
+										<span class="title_sub">별그레</span>
+										<span class="date_txt">17.11.05</span>
+										<span class="comment_re"><a href="#none" class="color_blog btn_comment">블로그 보기</a></span>
+										<div class="comu_comment_img"></div>
+									</div>
+									<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+								</li>
+								<li style="border-bottom:1px solid #ebebeb">
+									<div class="comment_title">
+										<span class="title_sub">별그레</span>
+										<span class="date_txt">17.11.05</span>
+										<span class="comment_re"><a href="#none" class="color_blog btn_comment">블로그 보기</a></span>
+										<div class="comu_comment_img"></div>
+									</div>
+									<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+								</li>
+								<li>
+									<div class="comment_title">
+										<span class="title_sub">별그레</span>
+										<span class="date_txt">17.11.05</span>
+										<span class="comment_re"><a href="#none" class="color_blog btn_comment" btn_comment>블로그 보기</a></span>
+										<div class="comu_comment_img"></div>
+									</div>
+									<div class="comment_conts">간혹 커뮤니티 게시판에 선정되신 체험과 관련된 질문을 남겨주시는 분들이 계신데요. 궁금하신 사항은 1:1문의 게시판에 글을 남겨주셔야 해요.이곳에서 글을 남기시게 되면 빠른 답변이 어렵습니다ㅠㅠ 이 점 꼭 참고해주세요!</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- 업체정보 -->
+					<div class="swiper-slide">
+						<div class="tab3_pn">
+							<p style="font-size:12px;padding-bottom:10px" class="title">소개</p>
+							<div style="color:#797979;font-size:12px">샤이닝스텔라는 최고 수준의 품질로 믿을 수 있는 제품입니다.</div>
+							<p style="font-size:12px;padding-bottom:10px;padding-top:23px" class="title">위치</p>
+							<div style="color:#797979;font-size:12px">서울특별시 영등포구 당산동 4가 74-2</div>
+							<div style="margin-left:;padding-top:13px"><img src="../temp-img/map_sample.jpg" style="width:100%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="position:fixed;bottom:0;left:0;padding:10px 0;background:#0755ed;width:100%;z-index:2">
+				<div style="overflow:hidden;padding:0 18px">
+					<a style="display:block;float:left;width:47%;color:#fff;text-align:center;padding:8px 0;font-size:12px;border:1px solid #fff;border-radius:4em;overflow:hidden">구경하기</a>
+					<a style="display:block;float:right;width:47%;color:#fff;text-align:center;padding:8px 0;font-size:12px;border:1px solid #fff;border-radius:4em;overflow:hidden">신청하기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	// 탭메뉴
+	$(document).on('click','#detail_view_mn li a', function() {
+		/*$(this).closest('li').addClass('on').siblings().removeClass('on');	
+		var tab_s = $(this).attr('class').substring(0,4);
+		if(tab_s == 'tab1') {
+			$('.tab1_pn').show();
+			$('.tab2_pn').hide();
+			$('.tab3_pn').hide();
+		}else if(tab_s == 'tab2') {
+
+			$('.tab1_pn').hide();
+			$('.tab2_pn').show();
+			$('.tab3_pn').hide();
+		}else if(tab_s == 'tab3') {
+			$('.tab1_pn').hide();
+			$('.tab2_pn').hide();
+			$('.tab3_pn').show();
+		}*/
+	})
+	
+	// 배너 슬라이드
+	var banner_slide = new Swiper('.detail_bann', { // 소개이미지 슬라이드
+		pagination: '.sub-pagination',
+		paginationClickable: true, 		
+		centeredSlides: true, 
+		slidesPerView: 1,
+		loop: true,
+		autoplay: {
+			delay:3200, // slide 시간 실정
+		},
+		autoplayDisableOnInteraction:false 
+	});
+	
+	// 메뉴 슬라이드
+	var mn_slide = new Swiper('.slide_tab_pn', { // 소개이미지 슬라이드
+		pagination: '#detail_view_mn',
+		paginationClickable: true, 		
+		centeredSlides: true, 
+		slidesPerView: 1,
+		loop: true,
+		autoplay: {
+			delay:3200, // slide 시간 실정
+		},
+		autoplayDisableOnInteraction:false 
+	});
+	</script>
+</body>
+</html>

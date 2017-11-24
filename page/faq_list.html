@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>자주하는질문</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<style>
+</style>
+<body>
+	<div id="header">
+		<h1>자주하는질문</h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<div class="list_wrap">
+		<ul class="list_pn_sd list_sd bk_white" id="faq_li">
+		
+		</ul>
+	</div>
+	<script>
+	// 리스트 슬라이드
+	$(document).on('click','.list_sd > li > a', function() {
+		$('html,body').animate({scrollTop : $(this).parent('li').offset().top},400);
+		$(this).closest('li').toggleClass('on').find('.answer').slideToggle().end().siblings().removeClass('on').find('.answer').slideUp();	
+		
+	})
+	</script>
+	<script>
+	$(document).ready(function(){
+		var string_f = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_faq.php",          
+			success:function(data){
+				$.each(data,function(key,value){
+					string_f += '<li><a href="#none"><div class="list_txt"><p style=""><span class="title_sub" style="display:inline-block" id="sp">'+value.wr_subject+'</span></p><span class="ps_r btn_arrow_r"></span></div></a><div class="answer" style="width:100%"><div>'+value.wr_content+'</div></div></li>';
+				})
+				$('#faq_li').append(string_f);
+				console.log(data);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	})
+	</script>
+</body>
+</html>

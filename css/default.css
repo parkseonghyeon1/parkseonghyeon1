@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+body,html{height:100%;}
+blockquote,body,button,code,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,select,td,textarea,th,ul{margin:0;padding:0}
+fieldset,img{border:0 none}
+dl,li,menu,ol,ul{list-style:none}
+blockquote,q{quotes:none}
+body,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,select,td,textarea,th,ul{margin:0;padding:0}
+blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}
+button,input,select,textarea{vertical-align:middle}
+button{border:0 none;background-color:transparent;cursor:pointer}
+table{border-collapse:collapse;border-spacing:0;border:0 none}
+body{-webkit-text-size-adjust:none}
+input[type=text] {border:none;outline:none}
+input:checked[type=checkbox]{background-color:#666;-webkit-appearance:checkbox}
+html input[type=button],input[type=email],input[type=password],input[type=reset],input[type=search],input[type=submit],input[type=tel],input[type=text]{-webkit-appearance:none;border-radius:0;vertical-align:middle}
+body,button,input,select,td,textarea,th,div,p {font-size:16px;line-height:1.5;font-family:NotoSansCKJ,NotoSans,Arial,NanumBarunGothic,dotum,applegothic,sans-serif;color:#303030}
+a,span{color:#303030;text-decoration:none;font-family:NotoSansCKJ,NotoSans,Arial,NanumBarunGothic,dotum,applegothic,sans-serif}
+a:active,a:hover{text-decoration:none}
+address,caption,cite,code,dfn,em,var{font-style:normal;font-weight:400}
+button::-moz-focus-inner{border:0;padding:0}
+body {background:#ececec}
+textarea, input[type=text] {box-sizing:border-box;}
+div {outline:none}
+.ui-loader {display:none !important}
+
+@font-face{
+	font-family: "NotoSansCKJ";
+	src: url("../font/NotoSansCJKkr-Regular.otf");
+}@font-face{
+	font-family: "NotoSansCKJ-Bold";
+	src: url("../font/NotoSansCJKkr-Bold.otf");
+}
+@font-face{
+	font-family: "NotoSansCKJ-Medium";
+	src: url("../font/NotoSansCJKkr-Medium.otf");
+}
+@font-face{
+	font-family: "NotoSans";
+	src: url("../font/NotoSansCJKkr-Regular.otf");
+	src: url("../font/NotoSans-Regular.eot?#iefix")	format("embedded-opentype"),
+		 url("../font/NotoSans-Regular.woff")		format("woff");
+}

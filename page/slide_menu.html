@@ -1,0 +1,96 @@
+	
+	<!-- header button -->
+	<div id="o-wrapper" class="o-wrapper">
+		<div class="c-buttons">
+			<a id="c-button--slide-left" class="c-button btn_t_l btn_t_bk btn_nav">메뉴</a>
+		</div>
+	</div>	
+	<a href="#none" class="btn_t_r btn_t_bk" id="btn_search">검색</a>
+	
+	<!-- nav slide menu -->
+	<nav id="c-menu--slide-left" class="c-menu c-menu--slide-left" style="overflow:hidden">
+		<div class="nav_left_mn">
+			<div style="background:#ececec">
+				<div class="nav_header">
+					<div class="nav_profile">
+					</div>
+				</div>
+				<ul class="c-menu__items nav_mn1">
+					<li class="c-menu__item"><a href="#none">나의 체험단</a></li>
+					<li class="c-menu__item"><a href="#none">관심 체험단</a></li>
+					<li class="c-menu__item"><a href="#none">리뷰 등록</a></li>
+				</ul>
+				<ul class="c-menu__items nav_mn2">
+					<li class="c-menu__item"><a href="notice_list.html" class="go_a">공지사항</a></li>
+					<li class="c-menu__item"><a href="#none">리뷰보기</a></li>
+					<li class="c-menu__item"><a href="comu_list.html" class="go_a">커뮤니티</a></li>
+					<li class="c-menu__item"><a href="event_list.html" class="go_a">이벤트</a></li>
+					<li class="c-menu__item"><a href="board_inq_form.html" class="go_a">1:1 문의</a></li>
+					<li class="c-menu__item"><a href="fnq_list.html" class="go_a">FAQ</a></li>
+				</ul>
+			</div>
+			<div class="nav_footer">
+				<ul class="nav_mn3">
+					<li><a href="#none">설정</a></li>
+					<li><a href="#nonr">개인정보</a></li>
+					<li><a href="ad_reg_form.html">광고문의</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="nav_right_mn">
+			<a href="main.html" class="home go_a_replace">home</a>
+			<a href="home_blog.html" class="blog go_a">blog</a>
+			<a href="home_sns.html?bo_table=product&site_id=sns" class="sns on go_a">sns</a>
+			<a href="#none" class="share">share</a>
+		</div>
+	</nav>
+	<div id="c-mask" class="c-mask"></div><!-- /c-mask -->
+	<script>
+	// nav left 메뉴
+	var slideLeft = new Menu({
+		wrapper: '#o-wrapper',
+		type: 'slide-left',
+		menuOpenerClass: '.c-button',
+		maskId: '#c-mask'
+	});
+
+	var slideLeftBtn = document.querySelector('#c-button--slide-left');
+
+	slideLeftBtn.addEventListener('click', function(e) {
+		e.preventDefault;
+		slideLeft.open();
+	});
+	</script>
+
+	<script>
+	// nav left-right 메뉴 on class (현재 활성화되어있는 페이지 on으로 변경시켜야함)
+	$(document).on('click','.nav_right_mn > a',function(){
+		$(this).parent().children('a').removeClass('on');
+		$(this).addClass('on');
+	})
+	// 이동
+    $(document).on('click','.go_a',function(){
+        var url = $(this).attr("href");
+        location.href(url);
+        return false;
+    });
+    $(document).on('click','.go_a_replace',function(){
+        var url = $(this).attr("href");
+        location.replace(url);
+        return false;
+    });
+	</script>	
+	<script>
+	if (logincheck==0) {
+        $('.nav_profile').html('<a href="login.html" class="go_a">로그인</a>');         
+    }else{
+		$('.nav_profile').html('<div class="p_img_wrap"><div class="p_img"><img src="http://modublog.co.kr/data/mb_photo/'+member['mb_id']+'" alt="" id="profile_img"></div></div><p class="title p_name"><a href="member_edit_form.html" class="go_a">'+member['mb_nick']+'</a></p><span class="p_point">'+member['mb_point']+'</span><div class="p_message"><a href="#none"><span class="title">1</span></a></div>');      
+    }
+    $('.p_message').click(function(){
+        window.localStorage.removeItem("mb_id");
+        window.localStorage.removeItem("mb_nick");
+        window.localStorage.removeItem("mb_point");
+        window.localStorage.clear();
+        document.location.reload();
+    });
+	</script>	

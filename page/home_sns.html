@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>SNS 홈</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<link rel="stylesheet" href="../css/swiper.min.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/swiper.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="nav_v"></div>
+	<script>
+		$("#nav_v").load("slide_menu.html");
+	</script>
+	
+	<!-- main banner -->
+	<div class="main_bann bk_gray">
+		<div class="main_bann_nav">
+			<span class="sub-pagination"></span>
+		</div>
+	</div>
+	
+    <div class="main_list">
+        <h1 class="title">MD 추천 콘텐츠</h1>
+		<div class="pd_wrap">
+			<div class="swiper-container">
+				<div class="swiper-wrapper" id="sns_wrap">
+				
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="home_list">
+		<div class="ca_wrap">
+			<div class="swiper-container">
+				<div class="swiper-wrapper home_category sns_ct">
+					<a href="#none" class="on" data="all"><span>전체</span></a>
+					<a href="#none" data="food"><span>맛집</span></a>
+					<a href="#none" data="fashion"><span>패션</span></a>
+					<a href="#none" data="beauty"><span>뷰티</span></a>
+					<a href="#none" data="life"><span>생활</span></a>
+					<a href="#none" data="event"><span>이벤트</span></a>
+				</div>
+			</div>
+		</div>
+		<ul id="sns_list">
+		
+		</ul>
+		<div id="loading_bar" class="off">
+		</div>
+	</div>
+	
+    <script>
+    // 카테고리 on-off
+    $(document).on("click",".home_category a",function(){  
+        $(this).parent().children('a').removeClass('on');
+        $(this).addClass('on');
+    })
+	
+	// 배너 slide	
+	var swiper_ca = new Swiper('.swiper-container', {
+		slidesPerView: 'auto',
+		spaceBetween: 4,
+		init: true
+	});	
+    </script>
+	<script>
+	$(document).ready(function(){
+	if (logincheck==0) {
+        $('.nav_profile').html('<a href="login.html" class="go_a">로그인</a>');         
+    }else{
+		$('.nav_profile').html('<div class="p_img_wrap"><div class="p_img"><img src="http://modublog.co.kr/data/mb_photo/'+member['mb_id']+'" alt="" id="profile_img"></div></div><p class="title p_name"><a href="member_edit_form.html" class="go_a">'+member['mb_nick']+'</a></p><span class="p_point">'+member['mb_point']+'</span><div class="p_message"><a href="#none"><span class="title">1</span></a></div>');      
+    }
+    });
+    $('.p_message').click(function(){
+        window.localStorage.removeItem("mb_id");
+        window.localStorage.removeItem("mb_nick");
+        window.localStorage.removeItem("mb_point");
+        window.localStorage.clear();
+        document.location.reload();
+    });
+	</script>
+	<script>
+	$(document).ready(function(){
+		var string = '';
+		var string_re= '';
+		var string_sn = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_sns.php",          
+			success:function(data){
+				//메인배너
+				$.each(data[0],function(key,value){
+					string += '<div class="swiper-slide"><div class="main_bann_img"><img alt="" src="http://modublog.co.kr/data/file/banner/new_banner/'+value.image_file+'"></div><div class="bann_txt"><p class="title"></p><span></span></div></div>';
+				}); 
+				$('.main_bann').append('<div class="swiper-wrapper" id="rolling_wrap"></div>');
+				$("#rolling_wrap").append(string);
+				
+				//추천콘텐츠 뿌리기
+				$.each(data[1],function(key,value){
+					string_re += '<div class="swiper-slide item"><a href="#none"><div class="sns_c"><div class="item_img"><img src="'+value.sn_img+'"></div><div class="item_txt"><p><span class="sub_title txt_ov">'+value.sn_wr_subject+'</span></p><span class="sub_txt color_sns">'+value.sn_pr_ca+'</span><span class="sub_txt item_view">조회&nbsp;'+value.sn_wr_hit+'</span></div></div></a></div>';
+				}); 
+				$("#sns_wrap").append(string_re);
+				
+				//SNS 뿌리기
+				$.each(data[2],function(key,value){
+					string_sn += '<li><a href="product_view_sns.html?bo_table='+value.sns_pr_board+'&wr_id='+value.sns_pr_board_id+'&site_id=sns"><div class="list_item"><div class="list_item_img"><img src="'+value.snn_img+'"></div><div class="list_item_txt"><p class="title">'+value.snn_wr_subject+'</p><span class="conts txt_ov">'+value.snn_subject_sub+'</span><div class="conts_info"><span class="info_title"><span>신청</span><span class="color_sns">'+value.snn_comment+'</span>&nbsp;/&nbsp;'+value.snn_rec_num+'</span><span class="info_title"><span>조회</span>'+value.snn_wr_hit+'</span><span class="info_title"><span>기간</span>D-'+value.snn_d_day+'</span></div></div></div></a></li>';
+				}); 
+				$("#sns_list").append(string_sn);
+				console.log(data);
+				
+				//메인배너 slide
+				var banner_slide1 = new Swiper('.main_bann', { // 소개이미지 슬라이드
+					pagination: {
+						el: '.sub-pagination',
+					},
+					paginationClickable: true, 		
+					centeredSlides: true, 
+					slidesPerView: 1,
+					loop: true,
+					autoplay: {
+						delay:4200, // slide 시간 실정
+					},
+					autoplayDisableOnInteraction:false 
+				});
+				
+				//상품 slide
+				var swiper = new Swiper('.swiper-container', {
+					slidesPerView: 'auto',
+					spaceBetween: 12,
+					init: true
+				});
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  		
+	})
+	</script>
+	<script>
+	var list = 12;
+	var list_num = 10;
+	
+	// SNS 카테고리 선택
+	$(document).on('click','.home_category a',function(){
+		var data = $(this).attr("data");
+		var params = {"bo_table":data,"type":"sns"};
+		$("#loading_bar").attr("class","on");
+		$("#sns_list").html("");
+		$('#sns_list').attr('style', '');
+		string_sn = '';
+		$.ajax({      
+			type:"POST",
+			data:params,			
+			url:"http://modublog.co.kr/app_public/ajax/a_sns_sub.php",      
+			beforeSend:function(){
+				$("#sns_list").html("<div class='loader_wrap' style='height:115px'><img src='../img/icon_loder.gif'></div>");
+			},
+			success:function(data){
+				$("#sns_list").html("");
+				//SNS 뿌리기
+				$.each(data,function(key,value){
+					string_sn += '<li><a href="#none"><div class="list_item"><div class="list_item_img"><img src="'+value.snn_img+'"></div><div class="list_item_txt"><p class="title">'+value.snn_wr_subject+'</p><span class="conts txt_ov">'+value.snn_subject_sub+'</span><div class="conts_info"><span class="info_title"><span>신청</span><span class="color_sns">'+value.snn_comment+'</span>&nbsp;/&nbsp;'+value.snn_rec_num+'</span><span class="info_title"><span>조회</span>'+value.snn_wr_hit+'</span><span class="info_title"><span>기간</span>D-'+value.snn_d_day+'</span></div></div></div></a></li>';
+				}); 
+				$("#sns_list").html(string_sn);
+				$("#loading_bar").attr("class","off");
+				list = 12;
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  		
+		})
+	});
+	
+	$(window).scroll(function() {
+		if($(window).scrollTop() == $(document).height() - $(window).height()){
+			var loading_class = $("#loading_bar").attr("class");
+			if(loading_class == 'off'){
+				var bo_table = $('.home_category .on').attr("data");
+				var params = {"bo_table":bo_table,"type":"sns","list":list};
+				string_sn = '';
+				$.ajax({      
+					type:"POST",
+					data:params,			
+					url:"http://modublog.co.kr/app_public/ajax/a_sns_ajax.php",      
+					beforeSend:function(){
+						$("#loading_bar").attr("class","on");
+						$("#loading_bar").html("<div class='loader_wrap' style='height:115px'><img src='../img/icon_loder.gif'></div>");
+					},
+					success:function(data){
+						//SNS 뿌리기
+						$.each(data,function(key,value){
+							string_sn += '<li><a href="#none"><div class="list_item"><div class="list_item_img"><img src="'+value.snn_img+'"></div><div class="list_item_txt"><p class="title">'+value.snn_wr_subject+'</p><span class="conts txt_ov">'+value.snn_subject_sub+'</span><div class="conts_info"><span class="info_title"><span>신청</span><span class="color_sns">'+value.snn_comment+'</span>&nbsp;/&nbsp;'+value.snn_rec_num+'</span><span class="info_title"><span>조회</span>'+value.snn_wr_hit+'</span><span class="info_title"><span>기간</span>D-'+value.snn_d_day+'</span></div></div></div></a></li>';
+						}); 
+						$("#sns_list").append(string_sn);
+						
+						list = list + list_num;
+						
+						console.log(list);
+						$("#loading_bar").html("");
+						$("#loading_bar").attr("class","off");
+						
+						if(!string_sn){
+							$("#loading_bar").attr("class","");
+						}
+					},   
+					error:function(e){  
+						alert(e.responseText);  
+					}  		
+				})
+			}			
+		}
+	})
+	</script>
+</body>
+</html>

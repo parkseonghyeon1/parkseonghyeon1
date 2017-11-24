@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>공지사항</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>공지사항</h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<div class="list_wrap">
+		<ul class="list_pn bk_white" id="notice_li">
+			
+		</ul>
+		<div id="loading_bar" class="off">
+	</div>
+	<script>
+	$(document).ready(function(){
+		var string_no = '';
+		var params = {"bo_table":"notice"};
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_list.php",     
+			data:params,
+			success:function(data){
+				$.each(data,function(key,value){
+					if(value.is_notice === true){
+						subject = '[공지] '+ value.wr_subject;
+					}else{
+						subject = value.wr_subject;
+					}
+					string_no += '<li><a href="notice_view.html?wr_id='+value.wr_id+'"><div class="list_txt"><div class="notice_txt"><span class="txt_ov title_sub">'+subject+'</span><span class="date_txt">'+value.datetime+'</span><span class="ps_r btn_arrow_r"></span></div></div></a></li>';
+				})
+				$('#notice_li').append(string_no);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	})
+	</script>
+	<script>
+	var list = 20;
+	var list_num = 20;
+	$(window).scroll(function() {
+		if($(window).scrollTop() == $(document).height() - $(window).height()){
+			var linum = $("#notice_li li").length;
+			var loading_class = $("#loading_bar").attr("class");
+			if(linum > 0 && loading_class == 'off'){
+				var params = {"list_ar":list,"bo_table":"notice"};
+				var string_no = '';
+				$.ajax({      
+					type:"POST",
+					data:params,			
+					url:"http://modublog.co.kr/app_public/ajax/a_ajax.php",      
+					beforeSend:function(){
+						$("#loading_bar").attr("class","on");
+						$("#loading_bar").html("<div class='loader_wrap' style='height:56px;background:#fff'><img src='../img/icon_loder.gif'></div>");
+					},
+					success:function(data){
+						$.each(data,function(key,value){
+							if(value.is_notice === true){
+								subject = '[공지] '+ value.wr_subject;
+							}else{
+								subject = value.wr_subject;
+							}
+							string_no += '<li><a href="notice_view.html?wr_id='+value.wr_id+'"><div class="list_txt"><div class="notice_txt"><span class="txt_ov title_sub">'+subject+'</span><span class="date_txt">'+value.datetime+'</span><span class="ps_r btn_arrow_r"></span></div></div></a></li>';
+						})
+						$("#notice_li").append(string_no);
+						
+						list = list + list_num;
+						
+						$("#loading_bar").attr("class","off");
+						
+						if(!string_no){
+							$("#loading_bar").attr("class","");
+						}
+					},   
+					error:function(e){  
+						alert(e.responseText);  
+					}  		
+				})
+			}
+		}	
+	})
+	</script>
+</body>
+</html>

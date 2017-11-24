@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; script-src 'self' http://* 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: http:; media-src *"/>
+	<title>이벤트 상세</title>
+	<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/nav.css"/>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/menu.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1 style="padding-left:45px"><span id="event_title" style="display:block;max-width:90%;text-overflow:ellipsis;overflow:hidden;white-space:nowrap"></span></h1>
+		<a href="javascript:history.back();" class="header_btn_l btn_back">뒤로</a>
+	</div>
+	<div id="event_li" style="width:100%;background:#fff">
+		<div id="event_conts" style="padding:0 16px;background:#fff"></div>
+	</div>
+	<div class="comu_box comment comment_re" id="cmt_box">
+		
+	</div>
+	<div class="comu_box comment_list bk_white">
+		<p id="comment_num"></p>
+		<ul id="comment_li">
+		
+		</ul>
+	</div>
+	<script>
+	// 텍스트 입력 시 버튼 change
+	$(document).on('keyup','.input',function(){
+		var val1 = $(this).val();
+		if(val1.length > 0){
+			$(this).next().children('a').addClass('on');
+		}else{
+			$(this).next().children('a').removeClass('on');
+		}
+	})
+	</script>
+	<script>
+	$(document).ready(function(){
+		var wr_id = getQuerystring('wr_id');
+		var params = {"wr_id":wr_id,"bo_table":"event"};
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_view.php",          
+			data:params,
+			success:function(data){
+				$("#event_title").html(data.wr_subject);
+				$("#event_conts").append(data.wr_content);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	})
+	</script>
+	<script>
+	$(document).ready(function(){
+		var wr_id = getQuerystring('wr_id');
+		var params = {"wr_id":wr_id,"bo_table":"event"};
+		var string_c = '';
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_comment_view.php",  
+			data:params,			
+			success:function(data){
+				$.each(data,function(key,value){
+					if(!value.wr_comment_reply){
+						string_c += '<li><div>';
+					}else{
+						string_c += '<li style="border-top:1px solid #f1f1f1"><div class="comment_re_dp" style="margin-left:'+value.cmt_depth+'px">';
+					}
+					
+					string_c += '<div class="comment_title"><span class="title_sub">'+value.wr_name+'</span><span class="date_txt" style="padding:0 4px">'+value.datetime+'</span><span class="comment_re">';
+					
+					if(member['mb_id']){
+						string_c += '<a href="#none" class="color_blog btn_comment" id="'+value.wr_id+'">답글</a>';
+					}
+					
+					string_c += '</span><div class="comment_img"><img src="'+value.mb_photo+'"></div></div>';
+					
+					if(value.icon_secret && value.mb_id != member['mb_id']){
+						string_c += '<div class="comment_conts">비밀글입니다.</div>';
+					}else{
+						string_c += '<div class="comment_conts">'+value.wr_content+'</div>';
+					}
+					string_c += '</div><div class="test"></div></li>';
+					
+				})
+				console.log(data);
+				$('#comment_num').html("댓글 "+data.length);
+				$('#comment_li').append(string_c);
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  
+		
+		var comment1 = '<form id="comment_input"><input type="hidden" name="w" value="c"><input type="hidden" name="bo_table" value="event"><input type="hidden" name="comment_id" value="0"><div style="position:relative;height:20px;"><input type="checkbox" id="" name="wr_secret" value="secret"><label for="wr_secret"><span></span></label></div><input type="hidden" name="wr_id" value="'+wr_id+'"><textarea type="text" class="input" name="wr_content" id="val1" placeholder="댓글을 입력하세요."></textarea><div class="btn_wrap btn_ok" style="margin-bottom:0"><a href="#none" id="">등록하기</a></div><input type="hidden" name="mb_id" value="'+member['mb_id']+'"><form>';
+		
+		$('#cmt_box').html(comment1);
+	})
+	</script>
+	<script> 
+	// 댓글-댓글
+	$(document).on('click','.btn_comment',function(){
+		var wr_id = getQuerystring('wr_id');
+		var comment_id = $(this).attr("id");
+		var comment = '<div class="comu_box comment comment_re2" style="padding:8px 0 13px"><form id="comment_input"><input type="hidden" name="w" value="c"><input type="hidden" name="bo_table" value="event"><input type="checkbox" id="wr_secret" name="wr_secret" value="secret"><label for="wr_secret"><span></span></label><input type="hidden" name="comment_id" value="'+comment_id+'"><input type="hidden" name="wr_id" value="'+wr_id+'"><textarea type="text" class="input" name="wr_content" id="val1" placeholder="댓글을 입력하세요."></textarea><div class="btn_wrap btn_ok" style="margin-bottom:0"><a href="#none" id="">등록하기</a></div><input type="hidden" name="mb_id" value="'+member['mb_id']+'"><form></div>';
+		
+		$(this).parent().parent().parent().parent('li').toggleClass('on').siblings().removeClass('on').find('.test').html("");
+		
+		var cmt_re = $(this).parent().parent().parent().parent('li').attr('class');
+		
+		if(cmt_re == 'on'){
+			$(this).parent().parent().parent().next('.test').html(comment);
+		}
+	})
+	
+	$(document).on('click','#val1',function(){
+		if(member['mb_id']){
+			return;
+		}else{
+			var con = confirm("로그인이 필요합니다. 로그인 하시겠습니까?");
+			if(con){
+				location.replace("login.html");
+			}else{
+				location.reload();
+			}
+		}
+	});
+	
+	$(document).on('click','.btn_ok a',function(){
+		var params = $(this).closest("form").serialize();
+		
+		$.ajax({      
+			type:"POST",  
+			url:"http://modublog.co.kr/app_public/ajax/a_comment_write.php",  
+			data:params,			
+			success:function(data){
+				location.reload();
+			},   
+			error:function(e){  
+				alert(e.responseText);  
+			}  
+		});  	
+	});
+	</script>
+</body>
+</html>
